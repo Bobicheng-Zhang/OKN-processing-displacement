@@ -1,4 +1,4 @@
-# README
+# Displacement-Based Gaze Processing
 
 This pipeline is designed to take raw event and sample files from EyeLink and extract patterns of eye movements (specifically optokinetic nystagmus) and identify moments of perceptual switches during observation of bistable stimuli.
 
