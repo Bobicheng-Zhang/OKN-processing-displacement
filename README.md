@@ -15,6 +15,8 @@ The rotating sphere is created using **structure-from-motion (SFM)** principles:
 ### Experimental Tasks
 Participants complete two tasks in randomized order.
 
+<img width="1850" height="1520" alt="image" src="https://github.com/user-attachments/assets/1f8e2709-4f4f-40e6-96d6-2123fa512b5f" />
+
 #### 1. Report Condition (Rotation Direction)
 - **Task**: Detect and report changes in sphere rotation direction
 - **Response**: Left arrow key = leftward rotation, Right arrow key = rightward rotation
