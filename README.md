@@ -1,3 +1,31 @@
+# Structure-from-Motion Perceptual Bistability Experiment
+
+## Experiment Overview
+This experiment studies perceptual bistability using a rotating sphere composed of triangular elements. Participants view the stimulus monocularly while an EyeLink records eye movements and a Macintosh records behavioral responses. The paradigm separates two types of perceptual changes: rotation direction perception and triangle orientation detection.
+For more detail, see Zhang, B., Marshev, V., & Brascamp, J. W. (2025). The pupil response to perceptual switches: What happens when you ignore them. Journal of Vision, 25(8), 5-5.
+
+The rotating sphere is created using **structure-from-motion (SFM)** principles:
+
+- **Spherical Coordinate System**: Dots are positioned using spherical coordinates (azimuth, elevation, radius)
+- **Dynamic Rotation**: Continuous rotation around the vertical axis at 72°/second
+- **Limited Dot Lifetime**: Individual triangular elements are randomly repositioned to maintain motion coherence
+- **Triangle Elements**: Dots are replaced by upward or downward-pointing triangular masks
+- **Size & Field**: 400 triangular elements within a 69-pixel radius sphere (~5-6° visual angle)
+
+### Experimental Tasks
+Participants complete two tasks in randomized order.
+
+#### 1. Report Condition (Rotation Direction)
+- **Task**: Detect and report changes in sphere rotation direction
+- **Response**: Left arrow key = leftward rotation, Right arrow key = rightward rotation
+- **Focus**: Perceptual switches in rotation direction (bistable motion)
+
+#### 2. Ignore Condition (Triangle Orientation)  
+- **Task**: Detect and report changes in triangle pointing direction
+- **Response**: Up arrow key = upward triangles, Down arrow key = downward triangles
+- **Focus**: Form-based perceptual changes (orientation switches)
+  
+
 # Displacement-Based Gaze Processing
 
 This pipeline is designed to take raw event and sample files from EyeLink and extract patterns of eye movements (specifically optokinetic nystagmus) and identify moments of perceptual switches during observation of bistable stimuli.
@@ -62,26 +90,3 @@ okn_switches
 31111  2783535.0   ignore_10       1          -1
 31130  2784257.0   ignore_10       1          -1
 ```
-
-## Deconvolution 
-`general_tools.deconvolve` 
-Intersample interval (sec) nideconv: 0.25; Toeplitz: 0.33 
-* `pupil_data_concatenated` (NumPy array): time points in the first column and data values for each time point in the second column
-
-```
-array([[ 0.00000000e+00,  3.08350607e-28],
-       [ 9.99978883e+01, -2.32679732e-29],
-       ...,
-       [ 2.79374100e+06,  2.18995971e-06],
-       [ 2.79384100e+06,  8.12127284e-06]])
-```
-* `event_type_names` (nested list): the names of the event types whose timing is provided by `event_moments_ms`
-  * reported perceptual switches
-  * ignored shape changes
-  * reported shape changes
-  * ignore perceptual switches
-* `event_moments_ms` (nested list): result of combining the members of `event_moments_ms_to_be_concatenated`): every sublist contains the moments, in ms and on a time axis that corresponds with that of data_concatenated, of events of a given kind, if events of that kind were represented by sub-sublists of dimension Nx1 in `event_moments_ms_to_be_concatenated`. For events that were represented by sub-sublists of dimension Nx2, the corresponding sublist in event_moments_ms_concatenated contains those moments, paired with values that belong to those moments.
-* `regressor_name_list` or `event_type_names`: *the names of the event types whose timing is provided by event_moments_ms. The order of entries should correspond between event_moments_ms and `event_type_names`
-* `deconvolution_window_min_max_s` (array/list of two numbers, or Nx2 array/list of numbers): the start point and end point of the time interval (relative to events) during which response curves need to be estimated, in seconds. 
-* If this is a 1D list or array with 2 elements then this start and end interval is applied for each regressor. 
-* If, instead, this is a 2D list or array, containing a larger number of start/end pairs, then each event type gets a different start/end pair from `deconvolution_window_min_max_s`. In that case both the order and the length of deconvolution_window_min_max_s needs to correspond to those of `event_moments_and_optional_values_ms` and `event_type_names`.
